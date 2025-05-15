@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ExploreMore Travel Agency - Lubumbashi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar for modern look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e0f2fe;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #0284c7;
+      border-radius: 10px;
+    }
+    /* Partner logos animation */
+    @keyframes scrollPartners {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .partners-slider {
+      display: flex;
+      width: 200%;
+      animation: scrollPartners 20s linear infinite;
+    }
+    .partner-logo {
+      flex: 0 0 20%;
+      max-width: 20%;
+      filter: grayscale(70%);
+      opacity: 0.8;
+      transition: filter 0.3s, opacity 0.3s;
+      padding: 1.5rem;
+    }
+    .partner-logo:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+    /* Return to top button */
+    #toTopBtn {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      background-color: #fbbf24; /* amber-400 */
+      color: #14532d; /* green-900 */
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      transition: background-color 0.3s;
+    }
+    #toTopBtn:hover {
+      background-color: #f59e0b; /* amber-500 */
+    }
+  </style>
+</head>
+<body class="bg-blue-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-green-800 to-emerald-500 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-white font-extrabold text-2xl tracking-widest select-none">Go Travel</h1>
+
+      <!-- Desktop nav -->
+      <nav id="navMenu" class="hidden md:flex space-x-4 lg:space-x-6 text-green-100 font-semibold text-sm sm:text-base">
+        <a href="#destinations" data-key="navDestinations" class="hover:text-yellow-400 transition-colors">Destinations</a>
+        <a href="#packages" data-key="navPackages" class="hover:text-yellow-400 transition-colors">Packages</a>
+        <a href="#services" data-key="navServices" class="hover:text-yellow-400 transition-colors">Services</a>
+        <a href="#scholarships" data-key="navScholarships" class="hover:text-yellow-400 transition-colors">Scholarships</a>
+        <a href="#bestAfrica" data-key="navBestAfrica" class="hover:text-yellow-400 transition-colors">Best in Africa</a>
+        <a href="#famousAfrica" data-key="navFamousAfrica" class="hover:text-yellow-400 transition-colors">Famous in Africa</a>
+        <a href="#immigration" data-key="navImmigration" class="hover:text-yellow-400 transition-colors">Immigration</a>
+        <a href="#partners" data-key="navPartners" class="hover:text-yellow-400 transition-colors">Partners</a>
+        <a href="#contact" data-key="navContact" class="hover:text-yellow-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Language selector -->
+      <div class="hidden md:flex items-center space-x-4">
+        <label for="languageSelect" class="sr-only">Select language</label>
+        <select id="languageSelect" class="rounded-md border border-green-300 p-1 text-green-900 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden text-green-100 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile nav menu -->
+    <nav id="mobileMenu" class="md:hidden bg-gradient-to-r from-green-800 to-emerald-500 text-green-100 font-semibold hidden flex-col px-6 pb-6 space-y-3 text-sm">
+      <a href="#destinations" data-key="navDestinations" class="block hover:text-yellow-400 transition-colors">Destinations</a>
+      <a href="#packages" data-key="navPackages" class="block hover:text-yellow-400 transition-colors">Packages</a>
+      <a href="#services" data-key="navServices" class="block hover:text-yellow-400 transition-colors">Services</a>
+      <a href="#scholarships" data-key="navScholarships" class="block hover:text-yellow-400 transition-colors">Scholarships</a>
+      <a href="#bestAfrica" data-key="navBestAfrica" class="block hover:text-yellow-400 transition-colors">Best in Africa</a>
+      <a href="#famousAfrica" data-key="navFamousAfrica" class="block hover:text-yellow-400 transition-colors">Famous in Africa</a>
+      <a href="#immigration" data-key="navImmigration" class="block hover:text-yellow-400 transition-colors">Immigration</a>
+      <a href="#partners" data-key="navPartners" class="block hover:text-yellow-400 transition-colors">Partners</a>
+      <a href="#contact" data-key="navContact" class="block hover:text-yellow-400 transition-colors">Contact</a>
+      <div class="mt-4">
+        <label for="languageSelectMobile" class="sr-only">Select language</label>
+        <select id="languageSelectMobile" class="w-full rounded-md border border-green-300 p-2 text-green-900 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section 
+    class="h-[85vh] bg-cover bg-center flex items-center justify-center px-6 text-center"
+    style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80');">
+    <div class="bg-black bg-opacity-60 rounded-lg p-8 max-w-3xl">
+      <h2 data-key="heroHeading" class="text-white text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">Discover Your Next Adventure with ExploreMore</h2>
+      <p data-key="heroSubheading" class="text-green-100 text-lg md:text-xl drop-shadow-md">Lubumbashi based agency helping students get scholarships in Europe, Asia, and USA.</p>
+    </div>
+  </section>
+
+  <!-- Destinations -->
+  <section id="destinations" class="max-w-7xl mx-auto px-6 my-16">
+    <h3 data-key="destinationsHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Popular Destinations</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60" alt="Tropical beach with palm trees" class="w-full h-44 sm:h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="dest1Title" class="text-green-800 font-semibold text-xl mb-2">Bali, Indonesia</h4>
+          <p data-key="dest1Desc" class="text-gray-600 text-sm leading-relaxed">Experience exotic beaches, vibrant culture, and stunning temples in this tropical paradise.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=60" alt="Paris Eiffel Tower" class="w-full h-44 sm:h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="dest2Title" class="text-green-800 font-semibold text-xl mb-2">Paris, France</h4>
+          <p data-key="dest2Desc" class="text-gray-600 text-sm leading-relaxed">The city of love and lights, filled with iconic landmarks, art, and gourmet cuisine.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=60" alt="New York skyline at night" class="w-full h-44 sm:h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="dest3Title" class="text-green-800 font-semibold text-xl mb-2">New York City, USA</h4>
+          <p data-key="dest3Desc" class="text-gray-600 text-sm leading-relaxed">The city that never sleeps — skyscrapers, Broadway shows, and endless excitement.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=60" alt="Santorini blue domes" class="w-full h-44 sm:h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="dest4Title" class="text-green-800 font-semibold text-xl mb-2">Santorini, Greece</h4>
+          <p data-key="dest4Desc" class="text-gray-600 text-sm leading-relaxed">Famous for its stunning sunsets, whitewashed buildings, and azure seas.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages" class="max-w-7xl mx-auto px-6 my-16">
+    <h3 data-key="packagesHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Exclusive Travel Packages</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <article class="bg-white rounded-2xl shadow-lg flex flex-col hover:shadow-2xl transition-shadow duration-300">
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=60" alt="Safari wildlife" class="rounded-t-2xl object-cover h-48 w-full"/>
+        <div class="p-6 flex flex-col flex-grow">
+          <h4 data-key="pack1Title" class="text-green-900 font-bold mb-3 text-xl">African Safari Adventure</h4>
+          <p data-key="pack1Desc" class="flex-grow text-gray-700 mb-5 text-sm leading-relaxed">7 days exploring wildlife in Kenya’s famous Maasai Mara with expert guides and luxury tents.</p>
+          <div class="text-amber-500 font-extrabold text-lg mb-6">$3,200</div>
+          <button data-key="bookNow" class="bg-amber-400 hover:bg-amber-500 text-green-900 font-semibold rounded-lg py-3 transition-colors" onclick="alertBooking()">
+            Book Now
+          </button>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-2xl shadow-lg flex flex-col hover:shadow-2xl transition-shadow duration-300">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=60" alt="European cityscape" class="rounded-t-2xl object-cover h-48 w-full"/>
+        <div class="p-6 flex flex-col flex-grow">
+          <h4 data-key="pack2Title" class="text-green-900 font-bold mb-3 text-xl">European Highlights Tour</h4>
+          <p data-key="pack2Desc" class="flex-grow text-gray-700 mb-5 text-sm leading-relaxed">14 days guided tour through Paris, Rome, Amsterdam, and more with exclusive museums and dining.</p>
+          <div class="text-amber-500 font-extrabold text-lg mb-6">$4,900</div>
+          <button data-key="bookNow" class="bg-amber-400 hover:bg-amber-500 text-green-900 font-semibold rounded-lg py-3 transition-colors" onclick="alertBooking()">
+            Book Now
+          </button>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-2xl shadow-lg flex flex-col hover:shadow-2xl transition-shadow duration-300">
+        <img src="https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=800&q=60" alt="Beach vacation" class="rounded-t-2xl object-cover h-48 w-full"/>
+        <div class="p-6 flex flex-col flex-grow">
+          <h4 data-key="pack3Title" class="text-green-900 font-bold mb-3 text-xl">Maldives Luxury Escape</h4>
+          <p data-key="pack3Desc" class="flex-grow text-gray-700 mb-5 text-sm leading-relaxed">5 nights stay in an overwater bungalow with snorkeling, spa treatments, and private chef.</p>
+          <div class="text-amber-500 font-extrabold text-lg mb-6">$5,500</div>
+          <button data-key="bookNow" class="bg-amber-400 hover:bg-amber-500 text-green-900 font-semibold rounded-lg py-3 transition-colors" onclick="alertBooking()">
+            Book Now
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="max-w-7xl mx-auto px-6 my-16">
+    <h3 data-key="servicesHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Our Services</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div class="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7v10M8 7v10m-5 0a2 2 0 002 2h10a2 2 0 002-2v-5a4 4 0 00-4-4H7a4 4 0 00-4 4v5z" />
+        </svg>
+        <h4 data-key="service1Title" class="text-xl font-semibold text-green-800 mb-2">Visa & Passport Assistance</h4>
+        <p data-key="service1Desc" class="text-gray-600 text-sm">Expert guidance and support to help you obtain visas and passports quickly and hassle-free.</p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h1l1 3h13l1-3h1M5 16h14l1 3H4l1-3z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 16V9a4 4 0 014-4h2a4 4 0 014 4v7" />
+        </svg>
+        <h4 data-key="service2Title" class="text-xl font-semibold text-green-800 mb-2">Plane Tickets</h4>
+        <p data-key="service2Desc" class="text-gray-600 text-sm">Competitive prices and wide flight options to take you anywhere in the world.</p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-md p-8 flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276a2 2 0 110 3.552L15 14m-6 6v-1a4 4 0 014-4h2a4 4 0 014 4v1" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 17h6" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v4" />
+        </svg>
+        <h4 data-key="service3Title" class="text-xl font-semibold text-green-800 mb-2">Customized Itineraries</h4>
+        <p data-key="service3Desc" class="text-gray-600 text-sm">Personalized travel plans tailored to your preferences and budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scholarships -->
+  <section id="scholarships" class="max-w-7xl mx-auto px-6 my-16 bg-green-100 rounded-xl py-12 shadow-md">
+    <h3 data-key="scholarshipsHeading" class="text-3xl font-bold text-green-900 text-center mb-8">Scholarship Assistance</h3>
+    <p data-key="scholarshipsIntro" class="text-center text-green-800 max-w-3xl mx-auto mb-10 text-lg">
+      ExploreMore Lubumbashi proudly helps African students find scholarships for prestigious programs across Europe, Asia, USA, and Canada. We guide you through applications, travel plans, and visa process to empower your educational journey.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 max-w-6xl mx-auto">
+      <div class="bg-white rounded-lg p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+        <h4 data-key="scholarshipEuropeTitle" class="text-xl font-semibold text-green-800 mb-3">Scholarships in Europe</h4>
+        <p data-key="scholarshipEuropeDesc" class="text-gray-700">Find opportunities in top universities with full and partial scholarships for African students.</p>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+        <h4 data-key="scholarshipAsiaTitle" class="text-xl font-semibold text-green-800 mb-3">Scholarships in Asia</h4>
+        <p data-key="scholarshipAsiaDesc" class="text-gray-700">Discover programs in countries like Japan, South Korea, and China supporting African students.</p>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+        <h4 data-key="scholarshipUSATitle" class="text-xl font-semibold text-green-800 mb-3">Scholarships in the USA</h4>
+        <p data-key="scholarshipUSADesc" class="text-gray-700">Gain access to scholarships and assistance for studying in the USA and building your future.</p>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+        <h4 data-key="scholarshipCanadaTitle" class="text-xl font-semibold text-green-800 mb-3">Scholarships in Canada</h4>
+        <p data-key="scholarshipCanadaDesc" class="text-gray-700">Explore scholarships offered by Canadian institutions for international students from Africa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Destinations in Africa -->
+  <section id="bestAfrica" class="max-w-7xl mx-auto px-6 my-16">
+    <h3 data-key="bestAfricaHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Best Destinations in Africa – Focus on DRCongo</h3>
+    <p data-key="bestAfricaIntro" class="text-center text-green-800 max-w-3xl mx-auto mb-10 text-lg">
+      Discover the beauty and culture of Africa starting from the heart of DRCongo. Explore breathtaking landscapes, vibrant cities, and hidden gems.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Kasai-oriental-Congo-Kabinda.jpg" alt="Kasai Oriental Landscape" class="w-full h-48 sm:h-40 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="africaDest1Title" class="text-green-800 font-semibold text-xl mb-2">Kasai Oriental</h4>
+          <p data-key="africaDest1Desc" class="text-gray-600 text-sm leading-relaxed">Lush forests, rich culture, and authentic Congolese experiences.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/NP_Lukuru_Riverside.jpg" alt="Lukuru National Park" class="w-full h-48 sm:h-40 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="africaDest2Title" class="text-green-800 font-semibold text-xl mb-2">Lukuru National Park</h4>
+          <p data-key="africaDest2Desc" class="text-gray-600 text-sm leading-relaxed">Experience wildlife and wilderness in one of Africa’s hidden gems.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Lubumbashi_2016_18.jpg" alt="Lubumbashi City" class="w-full h-48 sm:h-40 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="africaDest3Title" class="text-green-800 font-semibold text-xl mb-2">Lubumbashi</h4>
+          <p data-key="africaDest3Desc" class="text-gray-600 text-sm leading-relaxed">The vibrant second city of DRC, blending modern life and rich history.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1552711859-4210eaa1117b?auto=format&fit=crop&w=800&q=60" alt="Zanzibar beach" class="w-full h-48 sm:h-40 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="africaDest4Title" class="text-green-800 font-semibold text-xl mb-2">Zanzibar, Tanzania</h4>
+          <p data-key="africaDest4Desc" class="text-gray-600 text-sm leading-relaxed">Famous for pristine beaches, historic Stone Town, and rich Swahili culture.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Famous Destinations in Africa -->
+  <section id="famousAfrica" class="max-w-7xl mx-auto px-6 my-16 bg-green-100 rounded-xl py-12 shadow-md">
+    <h3 data-key="famousAfricaHeading" class="text-3xl font-bold text-green-900 text-center mb-8">Famous Destinations in Africa</h3>
+    <p data-key="famousAfricaIntro" class="text-center text-green-800 max-w-4xl mx-auto mb-10 text-lg px-4">
+      Explore renowned destinations across Africa that attract millions of visitors annually for their natural beauty, wildlife, and cultural heritage.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Victoria_Falls_Zambia_2.jpg" alt="Victoria Falls" class="w-full h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="famousDest1Title" class="text-green-800 font-semibold text-xl mb-2">Victoria Falls</h4>
+          <p data-key="famousDest1Desc" class="text-gray-600 text-sm leading-relaxed">One of the largest and most famous waterfalls in the world, located on the Zambezi River.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Mount_Kilimanjaro_from_Machame_route%2C_2016.jpg" alt="Mount Kilimanjaro" class="w-full h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="famousDest2Title" class="text-green-800 font-semibold text-xl mb-2">Mount Kilimanjaro</h4>
+          <p data-key="famousDest2Desc" class="text-gray-600 text-sm leading-relaxed">Africa’s tallest peak and a favorite trekking destination in Tanzania.</p>
+        </div>
+      </article>
+      <article class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden cursor-pointer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Serengeti_Migration_Leo_1464_-_panoramio.jpg" alt="Serengeti National Park" class="w-full h-48 object-cover"/>
+        <div class="p-4">
+          <h4 data-key="famousDest3Title" class="text-green-800 font-semibold text-xl mb-2">Serengeti National Park</h4>
+          <p data-key="famousDest3Desc" class="text-gray-600 text-sm leading-relaxed">World-renowned wildlife reserve in Tanzania famous for the Great Migration.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Immigration Assistance -->
+  <section id="immigration" class="max-w-7xl mx-auto px-6 my-16 bg-green-100 rounded-xl py-12 shadow-md">
+    <h3 data-key="immigrationHeading" class="text-3xl font-bold text-green-900 text-center mb-8">Immigration Assistance</h3>
+    <p data-key="immigrationIntro" class="text-center text-green-800 max-w-4xl mx-auto mb-6 text-lg px-4">
+      Our Lubumbashi agency offers dedicated support for immigration to Europe, America, and other continents. We advise on visa applications, legal pathways, travel arrangements, and settlement preparations.
+    </p>
+    <ul class="list-disc max-w-xl mx-auto text-green-700 space-y-3 text-left px-4">
+      <li data-key="immigrationHelp1">Visa consultation and application assistance</li>
+      <li data-key="immigrationHelp2">Legal and documentation support</li>
+      <li data-key="immigrationHelp3">Travel planning and logistics</li>
+      <li data-key="immigrationHelp4">Pre-departure guidance and cultural preparation</li>
+    </ul>
+  </section>
+
+  <!-- Partners -->
+  <section id="partners" class="max-w-7xl mx-auto px-6 my-16">
+    <h3 data-key="partnersHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Our Trusted Partners</h3>
+    <div class="overflow-hidden relative bg-white rounded-xl shadow-lg py-12">
+      <div class="partners-slider" aria-label="Partners logos carousel">
+        <!-- Repeat logos twice for infinite scroll effect -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Africa.svg/2560px-Flag_of_Africa.svg.png" alt="African Union Logo" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Flag_of_Europe.svg/2560px-Flag_of_Europe.svg.png" alt="European Union Logo" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_China.svg/2560px-Flag_of_China.svg.png" alt="China Flag" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Japan.svg/2560px-Flag_of_Japan.svg.png" alt="Japan Flag" class="partner-logo" />
+        <!-- Repeat for seamless animation -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Africa.svg/2560px-Flag_of_Africa.svg.png" alt="African Union Logo" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Flag_of_Europe.svg/2560px-Flag_of_Europe.svg.png" alt="European Union Logo" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_China.svg/2560px-Flag_of_China.svg.png" alt="China Flag" class="partner-logo" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_Japan.svg/2560px-Flag_of_Japan.svg.png" alt="Japan Flag" class="partner-logo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-lg mx-auto px-6 my-20">
+    <h3 data-key="contactHeading" class="text-3xl font-bold text-green-900 text-center mb-12">Contact Us</h3>
+    <form id="contactForm" class="bg-white rounded-xl p-8 shadow-lg" onsubmit="return validateForm(event)" novalidate>
+      <div class="mb-6">
+        <label for="name" data-key="labelName" class="block text-green-800 font-semibold mb-2">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="" class="w-full border border-green-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition" required />
+      </div>
+      <div class="mb-6">
+        <label for="email" data-key="labelEmail" class="block text-green-800 font-semibold mb-2">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="" class="w-full border border-green-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition" required />
+      </div>
+      <div class="mb-6">
+        <label for="message" data-key="labelMessage" class="block text-green-800 font-semibold mb-2">Message</label>
+        <textarea id="message" name="message" placeholder="" rows="5" class="w-full border border-green-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition" required></textarea>
+      </div>
+      <button type="submit" data-key="sendMessage" class="w-full bg-amber-400 hover:bg-amber-500 text-green-900 font-semibold py-3 rounded-lg transition-colors">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Return to Top Button -->
+  <button id="toTopBtn" aria-label="Return to top">&uarr;</button>
+
+  <!-- Footer -->
+  <footer class="bg-green-900 text-green-100 text-center py-6 select-none">
+    <p>© 2024 ExploreMore Travel Agency - Lubumbashi</p>
+    <p class="mt-2 space-x-3">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">Facebook</a>
+      <span>|</span>
+      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">Twitter</a>
+      <span>|</span>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">Instagram</a>
+    </p>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Alert on booking buttons
+    function alertBooking() {
+      alert(currentMessages.bookingAlert);
+    }
+
+    // Language translations dictionary
+    const translations = {
+      en: {
+        navDestinations: "Destinations",
+        navPackages: "Packages",
+        navServices: "Services",
+        navScholarships: "Scholarships",
+        navBestAfrica: "Best in Africa",
+        navFamousAfrica: "Famous in Africa",
+        navImmigration: "Immigration",
+        navPartners: "Partners",
+        navContact: "Contact",
+        heroHeading: "Discover Your Next Adventure with ExploreMore",
+        heroSubheading: "Lubumbashi based agency helping students get scholarships in Europe, Asia, and USA.",
+        destinationsHeading: "Popular Destinations",
+        dest1Title: "Bali, Indonesia",
+        dest1Desc: "Experience exotic beaches, vibrant culture, and stunning temples in this tropical paradise.",
+        dest2Title: "Paris, France",
+        dest2Desc: "The city of love and lights, filled with iconic landmarks, art, and gourmet cuisine.",
+        dest3Title: "New York City, USA",
+        dest3Desc: "The city that never sleeps — skyscrapers, Broadway shows, and endless excitement.",
+        dest4Title: "Santorini, Greece",
+        dest4Desc: "Famous for its stunning sunsets, whitewashed buildings, and azure seas.",
+        packagesHeading: "Exclusive Travel Packages",
+        pack1Title: "African Safari Adventure",
+        pack1Desc: "7 days exploring wildlife in Kenya’s famous Maasai Mara with expert guides and luxury tents.",
+        pack2Title: "European Highlights Tour",
+        pack2Desc: "14 days guided tour through Paris, Rome, Amsterdam, and more with exclusive museums and dining.",
+        pack3Title: "Maldives Luxury Escape",
+        pack3Desc: "5 nights stay in an overwater bungalow with snorkeling, spa treatments, and private chef.",
+        bookNow: "Book Now",
+        servicesHeading: "Our Services",
+        service1Title: "Visa & Passport Assistance",
+        service1Desc: "Expert guidance and support to help you obtain visas and passports quickly and hassle-free.",
+        service2Title: "Plane Tickets",
+        service2Desc: "Competitive prices and wide flight options to take you anywhere in the world.",
+        service3Title: "Customized Itineraries",
+        service3Desc: "Personalized travel plans tailored to your preferences and budget.",
+        scholarshipsHeading: "Scholarship Assistance",
+        scholarshipsIntro: "ExploreMore Lubumbashi proudly helps African students find scholarships for prestigious programs across Europe, Asia, USA, and Canada. We guide you through applications, travel plans, and visa process to empower your educational journey.",
+        scholarshipEuropeTitle: "Scholarships in Europe",
+        scholarshipEuropeDesc: "Find opportunities in top universities with full and partial scholarships for African students.",
+        scholarshipAsiaTitle: "Scholarships in Asia",
+        scholarshipAsiaDesc: "Discover programs in countries like Japan, South Korea, and China supporting African students.",
+        scholarshipUSATitle: "Scholarships in the USA",
+        scholarshipUSADesc: "Gain access to scholarships and assistance for studying in the USA and building your future.",
+        scholarshipCanadaTitle: "Scholarships in Canada",
+        scholarshipCanadaDesc: "Explore scholarships offered by Canadian institutions for international students from Africa.",
+        bestAfricaHeading: "Best Destinations in Africa – Focus on DRCongo",
+        bestAfricaIntro: "Discover the beauty and culture of Africa starting from the heart of DRCongo. Explore breathtaking landscapes, vibrant cities, and hidden gems.",
+        africaDest1Title: "Kasai Oriental",
+        africaDest1Desc: "Lush forests, rich culture, and authentic Congolese experiences.",
+        africaDest2Title: "Lukuru National Park",
+        africaDest2Desc: "Experience wildlife and wilderness in one of Africa’s hidden gems.",
+        africaDest3Title: "Lubumbashi",
+        africaDest3Desc: "The vibrant second city of DRC, blending modern life and rich history.",
+        africaDest4Title: "Zanzibar, Tanzania",
+        africaDest4Desc: "Famous for pristine beaches, historic Stone Town, and rich Swahili culture.",
+        famousAfricaHeading: "Famous Destinations in Africa",
+        famousAfricaIntro: "Explore renowned destinations across Africa that attract millions of visitors annually for their natural beauty, wildlife, and cultural heritage.",
+        famousDest1Title: "Victoria Falls",
+        famousDest1Desc: "One of the largest and most famous waterfalls in the world, located on the Zambezi River.",
+        famousDest2Title: "Mount Kilimanjaro",
+        famousDest2Desc: "Africa’s tallest peak and a favorite trekking destination in Tanzania.",
+        famousDest3Title: "Serengeti National Park",
+        famousDest3Desc: "World-renowned wildlife reserve in Tanzania famous for the Great Migration.",
+        immigrationHeading: "Immigration Assistance",
+        immigrationIntro: "Our Lubumbashi agency offers dedicated support for immigration to Europe, America, and other continents. We advise on visa applications, legal pathways, travel arrangements, and settlement preparations.",
+        immigrationHelp1: "Visa consultation and application assistance",
+        immigrationHelp2: "Legal and documentation support",
+        immigrationHelp3: "Travel planning and logistics",
+        immigrationHelp4: "Pre-departure guidance and cultural preparation",
+        partnersHeading: "Our Trusted Partners",
+        contactHeading: "Contact Us",
+        labelName: "Full Name",
+        labelEmail: "Email Address",
+        labelMessage: "Message",
+        sendMessage: "Send Message",
+        bookingAlert: "Thank you for your interest! Our agent will contact you.",
+        formNameError: "Please enter a valid name with at least 2 characters.",
+        formEmailError: "Please enter a valid email address.",
+        formMessageError: "Please enter a message with at least 10 characters.",
+        formSuccess: "Thank you, {name}! Your message has been sent."
+      },
+      es: {
+        navDestinations: "Destinos",
+        navPackages: "Paquetes",
+        navServices: "Servicios",
+        navScholarships: "Becas",
+        navBestAfrica: "Lo Mejor de África",
+        navFamousAfrica: "Famosos en África",
+        navImmigration: "Inmigración",
+        navPartners: "Socios",
+        navContact: "Contacto",
+        heroHeading: "Descubre Tu Próxima Aventura con ExploreMore",
+        heroSubheading: "Agencia en Lubumbashi ayudando a estudiantes a obtener becas en Europa, Asia y EE.UU.",
+        destinationsHeading: "Destinos Populares",
+        dest1Title: "Bali, Indonesia",
+        dest1Desc: "Experimenta playas exóticas, cultura vibrante y templos impresionantes en este paraíso tropical.",
+        dest2Title: "París, Francia",
+        dest2Desc: "La ciudad del amor y las luces, llena de monumentos icónicos, arte y gastronomía gourmet.",
+        dest3Title: "Nueva York, EE.UU.",
+        dest3Desc: "La ciudad que nunca duerme: rascacielos, shows de Broadway y emoción sin fin.",
+        dest4Title: "Santorini, Grecia",
+        dest4Desc: "Famosa por sus impresionantes atardeceres, edificios blancos y mares azules.",
+        packagesHeading: "Paquetes de Viaje Exclusivos",
+        pack1Title: "Aventura Safari Africano",
+        pack1Desc: "7 días explorando la vida salvaje en el famoso Maasai Mara de Kenia con guías expertos y tiendas de lujo.",
+        pack2Title: "Tour de Destacados Europeos",
+        pack2Desc: "Tour guiado de 14 días por París, Roma, Ámsterdam y más con museos y gastronomía exclusivas.",
+        pack3Title: "Escapada de Lujo en Maldivas",
+        pack3Desc: "5 noches en un bungalow sobre el agua con snorkel, tratamientos de spa y chef privado.",
+        bookNow: "Reserva Ahora",
+        servicesHeading: "Nuestros Servicios",
+        service1Title: "Asistencia de Visa y Pasaporte",
+        service1Desc: "Asesoría experta y apoyo para obtener visas y pasaportes rápida y fácilmente.",
+        service2Title: "Boletos de Avión",
+        service2Desc: "Precios competitivos y muchas opciones de vuelos para llevarte a cualquier parte del mundo.",
+        service3Title: "Itinerarios Personalizados",
+        service3Desc: "Planes de viaje personalizados adaptados a tus preferencias y presupuesto.",
+        scholarshipsHeading: "Asistencia para Becas",
+        scholarshipsIntro: "ExploreMore Lubumbashi ayuda orgullosamente a estudiantes africanos a encontrar becas para programas prestigiosos en Europa, Asia, EE. UU., y Canadá. Te guiamos en las aplicaciones, planes de viaje y proceso de visa para potenciar tu camino educativo.",
+        scholarshipEuropeTitle: "Becas en Europa",
+        scholarshipEuropeDesc: "Encuentra oportunidades en universidades de primer nivel con becas completas y parciales para estudiantes africanos.",
+        scholarshipAsiaTitle: "Becas en Asia",
+        scholarshipAsiaDesc: "Descubre programas en países como Japón, Corea del Sur y China que apoyan a estudiantes africanos.",
+        scholarshipUSATitle: "Becas en EE.UU.",
+        scholarshipUSADesc: "Accede a becas y asistencia para estudiar en EE.UU. y construir tu futuro.",
+        scholarshipCanadaTitle: "Becas en Canadá",
+        scholarshipCanadaDesc: "Explora becas ofrecidas por instituciones canadienses para estudiantes internacionales de África.",
+        bestAfricaHeading: "Mejores Destinos en África – Enfoque en RDCongo",
+        bestAfricaIntro: "Descubre la belleza y cultura de África comenzando desde el corazón del RDCongo. Explora paisajes impresionantes, ciudades vibrantes y gemas escondidas.",
+        africaDest1Title: "Kasai Oriental",
+        africaDest1Desc: "Bosques exuberantes, cultura rica y experiencias congoleñas auténticas.",
+        africaDest2Title: "Parque Nacional Lukuru",
+        africaDest2Desc: "Experimenta la vida salvaje y la naturaleza en una de las joyas escondidas de África.",
+        africaDest3Title: "Lubumbashi",
+        africaDest3Desc: "La vibrante segunda ciudad del RDC, combinando vida moderna e historia rica.",
+        africaDest4Title: "Zanzíbar, Tanzania",
+        africaDest4Desc: "Famosa por sus playas pristinas, la histórica Stone Town y rica cultura swahili.",
+        famousAfricaHeading: "Destinos Famosos en África",
+        famousAfricaIntro: "Explora destinos reconocidos en toda África que atraen a millones de visitantes anualmente por su belleza natural, fauna y patrimonio cultural.",
+        famousDest1Title: "Cataratas Victoria",
+        famousDest1Desc: "Una de las cascadas más grandes y famosas del mundo, ubicada en el río Zambeze.",
+        famousDest2Title: "Montaña Kilimanjaro",
+        famousDest2Desc: "El pico más alto de África y un destino favorito para el senderismo en Tanzania.",
+        famousDest3Title: "Parque Nacional Serengeti",
+        famousDest3Desc: "Reserva de vida silvestre de renombre mundial en Tanzania famosa por la Gran Migración.",
+        immigrationHeading: "Asistencia para Inmigración",
+        immigrationIntro: "Nuestra agencia en Lubumbashi ofrece apoyo dedicado para la inmigración a Europa, América y otros continentes. Asesoramos en solicitudes de visa, vías legales, arreglos de viaje y preparativos para el asentamiento.",
+        immigrationHelp1: "Consulta y asistencia para aplicaciones de visa",
+        immigrationHelp2: "Apoyo legal y documental",
+        immigrationHelp3: "Planificación de viaje y logística",
+        immigrationHelp4: "Guía pre-salida y preparación cultural",
+        partnersHeading: "Nuestros Socios de Confianza",
+        contactHeading: "Contáctanos",
+        labelName: "Nombre Completo",
+        labelEmail: "Correo Electrónico",
+        labelMessage: "Mensaje",
+        sendMessage: "Enviar Mensaje",
+        bookingAlert: "¡Gracias por tu interés! Nuestro agente se pondrá en contacto contigo.",
+        formNameError: "Por favor ingresa un nombre válido de al menos 2 caracteres.",
+        formEmailError: "Por favor ingresa un correo electrónico válido.",
+        formMessageError: "Por favor ingresa un mensaje de al menos 10 caracteres.",
+        formSuccess: "Gracias, {name}! Tu mensaje ha sido enviado."
+      },
+      fr: {
+        navDestinations: "Destinations",
+        navPackages: "Forfaits",
+        navServices: "Services",
+        navScholarships: "Bourses",
+        navBestAfrica: "Meilleurs en Afrique",
+        navFamousAfrica: "Célèbres en Afrique",
+        navImmigration: "Immigration",
+        navPartners: "Partenaires",
+        navContact: "Contact",
+        heroHeading: "Découvrez votre prochaine aventure avec ExploreMore",
+        heroSubheading: "Agence basée à Lubumbashi aidant les étudiants à obtenir des bourses en Europe, en Asie et aux États-Unis.",
+        destinationsHeading: "Destinations populaires",
+        dest1Title: "Bali, Indonésie",
+        dest1Desc: "Découvrez des plages exotiques, une culture vibrante et des temples magnifiques dans ce paradis tropical.",
+        dest2Title: "Paris, France",
+        dest2Desc: "La ville de l'amour et des lumières, remplie de monuments emblématiques, d'art et de gastronomie.",
+        dest3Title: "New York, États-Unis",
+        dest3Desc: "La ville qui ne dort jamais – gratte-ciel, spectacles de Broadway et excitation sans fin.",
+        dest4Title: "Santorin, Grèce",
+        dest4Desc: "Célèbre pour ses couchers de soleil spectaculaires, ses bâtiments blanchis à la chaux et ses mers azur.",
+        packagesHeading: "Forfaits de voyage exclusifs",
+        pack1Title: "Aventure Safari Africain",
+        pack1Desc: "7 jours d'exploration de la faune dans le célèbre Maasai Mara au Kenya avec des guides experts et des tentes de luxe.",
+        pack2Title: "Tour des points forts européens",
+        pack2Desc: "Circuit guidé de 14 jours à Paris, Rome, Amsterdam et plus encore avec musées et gastronomie exclusifs.",
+        pack3Title: "Évasion de luxe aux Maldives",
+        pack3Desc: "Séjour de 5 nuits dans un bungalow sur l'eau avec plongée en apnée, soins au spa et chef privé.",
+        bookNow: "Réservez maintenant",
+        servicesHeading: "Nos Services",
+        service1Title: "Assistance Visa & Passeport",
+        service1Desc: "Conseils experts et assistance pour obtenir rapidement visas et passeports sans tracas.",
+        service2Title: "Billets d'avion",
+        service2Desc: "Prix compétitifs et large choix de vols pour vous emmener partout dans le monde.",
+        service3Title: "Itinéraires personnalisés",
+        service3Desc: "Plans de voyage personnalisés adaptés à vos préférences et budget.",
+        scholarshipsHeading: "Assistance aux Bourses",
+        scholarshipsIntro: "ExploreMore Lubumbashi aide fièrement les étudiants africains à trouver des bourses pour des programmes prestigieux en Europe, en Asie, aux États-Unis et au Canada. Nous vous guidons dans les candidatures, les plans de voyage et les démarches de visa pour réussir votre parcours éducatif.",
+        scholarshipEuropeTitle: "Bourses en Europe",
+        scholarshipEuropeDesc: "Trouvez des opportunités dans les meilleures universités avec des bourses complètes et partielles pour les étudiants africains.",
+        scholarshipAsiaTitle: "Bourses en Asie",
+        scholarshipAsiaDesc: "Découvrez des programmes dans des pays comme le Japon, la Corée du Sud et la Chine soutenant les étudiants africains.",
+        scholarshipUSATitle: "Bourses aux États-Unis",
+        scholarshipUSADesc: "Accédez à des bourses et une assistance pour étudier aux États-Unis et construire votre avenir.",
+        scholarshipCanadaTitle: "Bourses au Canada",
+        scholarshipCanadaDesc: "Découvrez les bourses offertes par des institutions canadiennes aux étudiants internationaux d'Afrique.",
+        bestAfricaHeading: "Meilleures destinations en Afrique – Focus sur RDCongo",
+        bestAfricaIntro: "Découvrez la beauté et la culture de l'Afrique à partir du cœur de la RDCongo. Explorez des paysages à couper le souffle, des villes dynamiques et des trésors cachés.",
+        africaDest1Title: "Kasai Oriental",
+        africaDest1Desc: "Forêts luxuriantes, culture riche et expériences congolaises authentiques.",
+        africaDest2Title: "Parc National Lukuru",
+        africaDest2Desc: "Vivez la faune et la nature dans l'une des perles cachées de l'Afrique.",
+        africaDest3Title: "Lubumbashi",
+        africaDest3Desc: "La dynamique deuxième ville de RDC, mêlant vie moderne et riche histoire.",
+        africaDest4Title: "Zanzibar, Tanzanie",
+        africaDest4Desc: "Célèbre pour ses plages immaculées, la ville historique de Stone Town et la riche culture swahilie.",
+        famousAfricaHeading: "Destinations célèbres en Afrique",
+        famousAfricaIntro: "Explorez des destinations renommées à travers l'Afrique qui attirent des millions de visiteurs chaque année pour leur beauté naturelle, leur faune et leur patrimoine culturel.",
+        famousDest1Title: "Chutes Victoria",
+        famousDest1Desc: "L'une des plus grandes et célèbres cascades du monde, située sur le fleuve Zambèze.",
+        famousDest2Title: "Mont Kilimandjaro",
+        famousDest2Desc: "Le plus haut sommet d’Afrique et une destination de trekking prisée en Tanzanie.",
+        famousDest3Title: "Parc National du Serengeti",
+        famousDest3Desc: "Réserve faunique mondialement connue en Tanzanie, célèbre pour la Grande Migration.",
+        immigrationHeading: "Assistance à l'immigration",
+        immigrationIntro: "Notre agence de Lubumbashi offre un soutien dédié pour l'immigration en Europe, en Amérique et dans d'autres continents. Nous conseillons sur les demandes de visa, les voies légales, les arrangements de voyage et la préparation à l'installation.",
+        immigrationHelp1: "Consultation et assistance pour les demandes de visa",
+        immigrationHelp2: "Soutien juridique et documentaire",
+        immigrationHelp3: "Planification des voyages et logistique",
+        immigrationHelp4: "Orientation avant départ et préparation culturelle",
+        partnersHeading: "Nos Partenaires de Confiance",
+        contactHeading: "Contactez-nous",
+        labelName: "Nom complet",
+        labelEmail: "Adresse e-mail",
+        labelMessage: "Message",
+        sendMessage: "Envoyer le message",
+        bookingAlert: "Merci pour votre intérêt ! Notre agent vous contactera.",
+        formNameError: "Veuillez saisir un nom valide d'au moins 2 caractères.",
+        formEmailError: "Veuillez saisir une adresse e-mail valide.",
+        formMessageError: "Veuillez saisir un message d'au moins 10 caractères.",
+        formSuccess: "Merci, {name} ! Votre message a été envoyé."
+      }
+    };
+
+    let currentLang = 'en';
+    let currentMessages = translations[currentLang];
+
+    // Function to translate all elements with data-key attribute
+    function applyTranslations(lang) {
+      currentLang = lang;
+      currentMessages = translations[lang];
+      const elements = document.querySelectorAll('[data-key]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (currentMessages[key]) {
+          el.textContent = currentMessages[key];
+        }
+      });
+
+      // Update form placeholders separately
+      document.getElementById('name').placeholder = currentLang === 'en' ? 'Your full name' :
+        currentLang === 'es' ? 'Tu nombre completo' : 'Votre nom complet';
+      document.getElementById('email').placeholder = currentLang === 'en' ? 'your.email@example.com' :
+        currentLang === 'es' ? 'tu.email@ejemplo.com' : 'votre.email@exemple.com';
+      if(currentLang === 'fr') {
+        document.getElementById('message').placeholder = "Écrivez votre demande ici...";
+      } else if (currentLang === 'es') {
+        document.getElementById('message').placeholder = "Escribe tu consulta aquí...";
+      } else {
+        document.getElementById('message').placeholder = "Write your inquiry here...";
+      }
+    }
+
+    // Language selector desktop
+    const languageSelect = document.getElementById('languageSelect');
+    languageSelect.addEventListener('change', (e) => {
+      const lang = e.target.value;
+      document.getElementById('languageSelectMobile').value = lang;
+      applyTranslations(lang);
+    });
+
+    // Language selector mobile
+    const languageSelectMobile = document.getElementById('languageSelectMobile');
+    languageSelectMobile.addEventListener('change', (e) => {
+      const lang = e.target.value;
+      document.getElementById('languageSelect').value = lang;
+      applyTranslations(lang);
+    });
+
+    // Form validation with translated alerts
+    function validateForm(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (name.length < 2) {
+        alert(currentMessages.formNameError);
+        return false;
+      }
+      if (!validateEmail(email)) {
+        alert(currentMessages.formEmailError);
+        return false;
+      }
+      if (message.length < 10) {
+        alert(currentMessages.formMessageError);
+        return false;
+      }
+
+      alert(currentMessages.formSuccess.replace('{name}', name));
+      document.getElementById('contactForm').reset();
+      return true;
+    }
+
+    function validateEmail(email) {
+      const re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    }
+
+    // Booking alert handled by alertBooking function
+    function alertBooking() {
+      alert(currentMessages.bookingAlert);
+    }
+
+    // Initialize translations on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      applyTranslations(currentLang);
+    });
+
+    // Show and hide return to top button based on scroll
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        toTopBtn.style.display = 'block';
+      } else {
+        toTopBtn.style.display = 'none';
+      }
+    });
+
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
+
